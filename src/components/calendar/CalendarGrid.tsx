@@ -3,6 +3,7 @@ import { getTimeSlots } from "../../utils/time";
 const CalendarGrid: FC = () => {
   const daysOfWeek = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
   const timeSlots = getTimeSlots();
+  console.log(new Date().toLocaleDateString('ru-RU', { weekday: 'short' }).toLocaleUpperCase());
 
   return (
     <div className="d-flex flex-column position-relative w-100 vh-100">
