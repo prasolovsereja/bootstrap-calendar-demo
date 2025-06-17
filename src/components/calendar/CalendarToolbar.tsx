@@ -1,10 +1,15 @@
 import type { FC } from "react";
 import { useAppDispatch, useAppSelector } from "../../slices/hooks";
 import { nextWeek, prevWeek, toggleDisplayMode } from "../../slices/calendarSlice";
+import type { DisplayMode } from "../../slices/calendarSlice";
 import { format, isEqual } from "date-fns"
 import { ru } from 'date-fns/locale';
 
-const CalendarToolbar: FC = () => {
+interface CalendarToolbarProps {
+  displayMode: DisplayMode,
+}
+
+const CalendarToolbar: FC<CalendarToolbarProps> = ({ displayMode }) => {
   const dispatch = useAppDispatch();
   const { selectedWeek, currentWeek } = useAppSelector((state) => state.calendar);
 
@@ -39,7 +44,7 @@ const CalendarToolbar: FC = () => {
         <button
           className="btn btn-primary"
           onClick={() => dispatch(toggleDisplayMode())}  
-        >Свернуть календарь</button>
+        >{displayMode === 'week' ? 'Свернуть календарь' : 'Развенуть календарь'}</button>
       </div>
     </div>
   );

@@ -1,10 +1,13 @@
 import type { FC } from "react";
-import { getTimeSlots } from "../../utils/time";
-const CalendarGrid: FC = () => {
-  const daysOfWeek = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
-  const timeSlots = getTimeSlots();
-  console.log(new Date().toLocaleDateString('ru-RU', { weekday: 'short' }).toLocaleUpperCase());
+import type { DisplayMode } from "../../slices/calendarSlice";
 
+interface CalendarGridProps {
+  daysToRender: string[],
+  timeSlots: string[],
+  displayMode?: DisplayMode,
+}
+
+const CalendarGrid: FC<CalendarGridProps> = ({ daysToRender, timeSlots }) => {
   return (
     <div className="d-flex flex-column position-relative w-100 vh-100">
       <div className="d-flex position-sticky top-0 bg-light" style={{ zIndex: 1 }}>
@@ -20,8 +23,8 @@ const CalendarGrid: FC = () => {
           </div>
         ))}
       </div>
-      <div className="d-flex flex-column h-100 w-auto">
-        {daysOfWeek.map((day) => (
+      <div className={`d-flex flex-column w-auto ${daysToRender.length === 1 ? 'h-25 border-bottom': 'h-100'}`}>
+        {daysToRender.map((day) => (
           <div
             key={day}
             className="d-flex border-top justify-content-evenly align-items-stretch h-100"
