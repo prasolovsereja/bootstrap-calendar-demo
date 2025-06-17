@@ -8,7 +8,7 @@ export const displayModes = {
   day: 'day' as DisplayMode,
 };
 
-type ISODateString = string;
+export type ISODateString = string;
 
 interface CalendarSliceState {
   displayMode: DisplayMode,

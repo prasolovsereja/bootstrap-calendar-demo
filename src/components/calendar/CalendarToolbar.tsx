@@ -1,20 +1,21 @@
 import type { FC } from "react";
-import { useAppDispatch, useAppSelector } from "../../slices/hooks";
+import { useAppDispatch } from "../../slices/hooks";
 import { nextWeek, prevWeek, toggleDisplayMode } from "../../slices/calendarSlice";
-import type { DisplayMode } from "../../slices/calendarSlice";
-import { format, isEqual } from "date-fns"
+import type { DisplayMode, ISODateString } from "../../slices/calendarSlice";
+import { format } from "date-fns"
 import { ru } from 'date-fns/locale';
 
 interface CalendarToolbarProps {
   displayMode: DisplayMode,
+  isCurrentWeek: boolean,
+  selectedWeek: {
+    start: ISODateString,
+    end: ISODateString,
+  }
 }
 
-const CalendarToolbar: FC<CalendarToolbarProps> = ({ displayMode }) => {
+const CalendarToolbar: FC<CalendarToolbarProps> = ({ displayMode, isCurrentWeek, selectedWeek }) => {
   const dispatch = useAppDispatch();
-  const { selectedWeek, currentWeek } = useAppSelector((state) => state.calendar);
-
-
-  const isCurrentWeek = isEqual(selectedWeek.start, currentWeek.start);
 
   const formattedWeekStart = format(selectedWeek.start, 'dd.MM.yyyy', { locale: ru});
   const formattedWeekEnd = format(selectedWeek.end, 'dd.MM.yyyy', { locale: ru });
