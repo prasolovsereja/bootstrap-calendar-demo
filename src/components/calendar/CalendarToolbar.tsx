@@ -12,9 +12,10 @@ interface CalendarToolbarProps {
     start: ISODateString,
     end: ISODateString,
   }
+  openModal: () => void,
 }
 
-const CalendarToolbar: FC<CalendarToolbarProps> = ({ displayMode, isCurrentWeek, selectedWeek }) => {
+const CalendarToolbar: FC<CalendarToolbarProps> = ({ displayMode, isCurrentWeek, selectedWeek, openModal }) => {
   const dispatch = useAppDispatch();
 
   const formattedWeekStart = format(selectedWeek.start, 'dd.MM.yyyy', { locale: ru});
@@ -39,7 +40,7 @@ const CalendarToolbar: FC<CalendarToolbarProps> = ({ displayMode, isCurrentWeek,
         >{'->'}</button>
       </div>
       <div className="d-flex flex-row justify-content-evenly w-50">
-        <button className="btn btn-primary">
+        <button className="btn btn-primary" onClick={() => openModal()}>
           Добавить событие
         </button>
         <button

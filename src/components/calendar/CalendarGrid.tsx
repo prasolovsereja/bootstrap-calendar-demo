@@ -1,13 +1,15 @@
 import type { FC } from "react";
 import type { DisplayMode } from "../../slices/calendarSlice";
+import type { Event } from "../../types/Event";
 
 interface CalendarGridProps {
   daysToRender: string[],
   timeSlots: string[],
   displayMode?: DisplayMode,
+  events: Event[],
 }
 
-const CalendarGrid: FC<CalendarGridProps> = ({ daysToRender, timeSlots }) => {
+const CalendarGrid: FC<CalendarGridProps> = ({ daysToRender, timeSlots, events }) => {
   return (
     <div className="d-flex flex-column position-relative w-100 vh-100">
       <div className="d-flex position-sticky top-0 bg-light" style={{ zIndex: 1 }}>
