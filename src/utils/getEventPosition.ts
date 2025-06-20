@@ -27,6 +27,8 @@ export const getEventPosition = ({
     const span = Math.max(1, endIndex - startIndex);
     // console.log('span>>>', span);
     return {
+      span,
+      startIndex,
       left: slotWidth * startIndex,
       width: span * slotWidth,
     };

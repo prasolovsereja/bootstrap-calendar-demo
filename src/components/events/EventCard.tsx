@@ -4,10 +4,10 @@ import type { Event } from "../../types/Event";
 interface EventCardProps {
   event: Event,
   style: {
-    top: string,
+    top: number,
     left: number,
     width: number,
-    height: string,
+    height: number,
   }
 }
 
