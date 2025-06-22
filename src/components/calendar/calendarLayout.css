@@ -1,0 +1,28 @@
+.calendar-enter {
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-10%);
+}
+
+/* активная фаза появления */
+.calendar-enter-active {
+  max-height: 1000px;
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 300ms ease;
+}
+
+/* состояние до выхода */
+.calendar-exit {
+  max-height: 1000px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* активная фаза выхода */
+.calendar-exit-active {
+  max-height: 0;
+  opacity: 0;
+  transform: translateY(-10%);
+  transition: all 300ms ease;
+}

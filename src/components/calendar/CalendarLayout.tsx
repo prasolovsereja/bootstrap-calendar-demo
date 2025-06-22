@@ -1,6 +1,7 @@
 import { useState, useMemo, type FC } from "react";
 import { isEqual } from "date-fns";
 import { useAppSelector } from "../../slices/hooks";
+import { CSSTransition } from "react-transition-group";
 import CalendarGrid from "./CalendarGrid";
 import CalendarToolbar from "./CalendarToolbar";
 import { getTimeSlots } from "../../utils/time";
@@ -8,12 +9,15 @@ import type { Event } from "../../types/Event";
 import CreateEventModal from "../modals/createEventModal";
 import { useGetSlotSize } from "../../hooks/useGetSlotSize";
 import { computePositionedEvents } from "../../utils/computePositionedEvents";
+import './CalendarLayout.css';
 
 const CalendarLayout: FC = () => {
   const [events, setEvents] = useState<Event[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const { displayMode, currentDay, selectedWeek, currentWeek } = useAppSelector((state) => state.calendar);
+
+  const shouldShowFullWeek = displayMode === 'week';
 
   const isCurrentWeek = isEqual(selectedWeek.start, currentWeek.start);
 
@@ -33,9 +37,7 @@ const CalendarLayout: FC = () => {
   };
 
   const { ref: slotRef, slotWidth, slotHeight } = useGetSlotSize(daysToRender);
-  console.log('slotRef>>', slotRef);
-  console.log('slotWidth>>>', slotWidth);
-  console.log('slotHeight>>>', slotHeight);
+
   const eventsToRender = useMemo(() => {
     if (!slotWidth || !slotHeight) return [];
     return computePositionedEvents({
@@ -54,12 +56,20 @@ const CalendarLayout: FC = () => {
         selectedWeek={selectedWeek}
         openModal={() => setIsModalOpen(true)}
       />
-      <CalendarGrid
-        daysToRender={daysToRender}
-        timeSlots={timeSlots}
-        positionedEvents={eventsToRender}
-        slotRef={slotRef}
-      />
+      <CSSTransition
+        in={shouldShowFullWeek}
+        timeout={300}
+        classNames='calendar'
+      >
+        <div className="position-relative overflow-hidden">
+          <CalendarGrid
+            daysToRender={daysToRender}
+            timeSlots={timeSlots}
+            positionedEvents={eventsToRender}
+            slotRef={slotRef}
+          />
+        </div>
+      </CSSTransition>
       {isModalOpen && <CreateEventModal onSubmit={handleAddEvent} onClose={() => setIsModalOpen(false)}/>}
     </div>
   )

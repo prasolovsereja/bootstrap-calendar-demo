@@ -9,9 +9,9 @@ export interface Event {
 export type PositionedEvent = {
   event: Event,
   style: {
-    top: string,
+    top: number,
     left: number,
     width: number,
-    height: string,
+    height: number,
   }
 };
