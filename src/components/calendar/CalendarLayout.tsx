@@ -1,5 +1,5 @@
 import { useState, useMemo, type FC } from 'react';
-import { isEqual } from 'date-fns';
+import { isEqual, isWithinInterval, parseISO } from 'date-fns';
 import { useAppSelector, useAppDispatch } from '../../slices/hooks';
 import CalendarGrid from './CalendarGrid';
 import CalendarToolbar from './CalendarToolbar';
@@ -95,7 +95,7 @@ const CalendarLayout: FC = () => {
       }, 600); // длительность expand
     }
   };
-  console.log(animationStage);
+
   const handleAddEvent = (data: Omit<Event, 'id'>) => {
     const newEvent: Event = {
       ...data,
@@ -106,17 +106,24 @@ const CalendarLayout: FC = () => {
   };
 
   const { ref: slotRef, slotWidth, slotHeight } = useGetSlotSize(visualDays);
-
+  const eventsInSelectedWeek = events.filter(e =>
+    isWithinInterval(parseISO(e.date), {
+      start: selectedWeek.start,
+      end: selectedWeek.end,
+    }),
+  );
+  console.log(events);
+  console.log(eventsInSelectedWeek);
   const eventsToRender = useMemo(() => {
     if (!slotWidth || !slotHeight) return [];
     return computePositionedEvents({
-      events,
+      events: eventsInSelectedWeek,
       slotWidth,
       timeSlots,
       daysToRender: visualDays,
       slotHeight,
     });
-  }, [events, slotWidth, timeSlots, visualDays, slotHeight]);
+  }, [eventsInSelectedWeek, slotWidth, timeSlots, visualDays, slotHeight]);
   return (
     <div className="d-flex flex-column w-100 vh-100">
       <CalendarToolbar

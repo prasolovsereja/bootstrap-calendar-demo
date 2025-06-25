@@ -44,7 +44,7 @@ export const computePositionedEvents = ({
 
     slotsMap.forEach(events => {
       const total = events.length;
-      events.forEach(event => {
+      events.forEach((event, i) => {
         if (renderedEvents.has(event.id)) return;
         const { left, width } = getEventPosition({
           startTime: event.start,
@@ -55,7 +55,7 @@ export const computePositionedEvents = ({
         result.push({
           event,
           style: {
-            top: rowIndex * (slotHeight / total),
+            top: rowIndex * slotHeight + (slotHeight / total) * i,
             height: slotHeight / total,
             width,
             left,

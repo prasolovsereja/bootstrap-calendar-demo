@@ -13,7 +13,7 @@ interface EventCardProps {
 
 const EventCard = React.memo(({ event, style }: EventCardProps) => {
   return (
-    <div className="position-absolute bg-primary text-white" style={style}>
+    <div className="position-absolute bg-primary text-white rounded-3" style={style}>
       {event.title}
     </div>
   );
