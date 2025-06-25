@@ -8,11 +8,18 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with: 
-          node-version: 18
-        run: npm install
-        run: npm run test:coverage
-        run: npm install -g coveralls
-        run: cat coverage/lcov.info | coveralls --repo-token=${{ secrets.COVERALLS_REPO_TOKEN }}
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: install dependencies, npm test-Coverage
+        run: |
+          npm install
+          npm run test:coverage
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@v2
