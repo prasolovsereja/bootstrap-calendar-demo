@@ -1,7 +1,4 @@
-export const getTimeSlots = (
-  startHour = 8,
-  endHour = 18,
-): string[] => {
+export const getTimeSlots = (startHour = 8, endHour = 18): string[] => {
   const slots: string[] = [];
   for (let h = startHour; h < endHour; h += 1) {
     slots.push(`${h.toString().padStart(2, '0')}:00`);

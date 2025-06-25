@@ -1,8 +1,8 @@
-import type { FC } from "react";
-import { useForm } from "react-hook-form";
-import type { Event } from "../../types/Event";
+import type { FC } from 'react';
+import { useForm } from 'react-hook-form';
+import type { Event } from '../../types/Event';
 
-type FormData = Omit<Event, 'id'>
+type FormData = Omit<Event, 'id'>;
 
 interface ModalProps {
   onSubmit: (data: FormData) => void;
@@ -31,22 +31,22 @@ const CreateEventModal: FC<ModalProps> = ({ onSubmit, onClose }) => {
                 <div className="mb-3">
                   <label className="form-label">Название</label>
                   <input
-                    {...register("title", { required: true })}
-                    className={`form-control ${errors.title ? "is-invalid" : ""}`}
+                    {...register('title', { required: true })}
+                    className={`form-control ${errors.title ? 'is-invalid' : ''}`}
                   />
                 </div>
 
                 <div className="mb-3">
                   <label className="form-label">Описание</label>
-                  <textarea {...register("description")} className="form-control" />
+                  <textarea {...register('description')} className="form-control" />
                 </div>
 
                 <div className="mb-3">
                   <label className="form-label">Дата</label>
                   <input
                     type="date"
-                    {...register("date", { required: true })}
-                    className={`form-control ${errors.date ? "is-invalid" : ""}`}
+                    {...register('date', { required: true })}
+                    className={`form-control ${errors.date ? 'is-invalid' : ''}`}
                   />
                 </div>
 
@@ -54,7 +54,7 @@ const CreateEventModal: FC<ModalProps> = ({ onSubmit, onClose }) => {
                   <label className="form-label">Начало</label>
                   <input
                     type="time"
-                    {...register("start", { required: true })}
+                    {...register('start', { required: true })}
                     className="form-control"
                   />
                 </div>
@@ -63,7 +63,7 @@ const CreateEventModal: FC<ModalProps> = ({ onSubmit, onClose }) => {
                   <label className="form-label">Конец</label>
                   <input
                     type="time"
-                    {...register("end", { required: true })}
+                    {...register('end', { required: true })}
                     className="form-control"
                   />
                 </div>
@@ -83,6 +83,6 @@ const CreateEventModal: FC<ModalProps> = ({ onSubmit, onClose }) => {
       </div>
       <div className="modal-backdrop show fade"></div>
     </>
-  )
+  );
 };
 export default CreateEventModal;

@@ -1,14 +1,14 @@
 type GetEventPositionArgs = {
-  startTime: string,
-  endTime: string,
-  slotWidth: number,
-  timeSlots: string[],
+  startTime: string;
+  endTime: string;
+  slotWidth: number;
+  timeSlots: string[];
 };
 
 const getTimeIndex = (time: string, timeSlots: string[]): number => {
   const [timeH, timeM] = time.split(':').map(Number);
   const timeMinutes = timeH * 60 + timeM;
-  const timeIndex = timeSlots.findIndex((timeSlot) => {
+  const timeIndex = timeSlots.findIndex(timeSlot => {
     const [hours, minutes] = timeSlot.split(':').map(Number);
     const slotMinutes = hours * 60 + minutes;
     return slotMinutes > timeMinutes;
@@ -22,14 +22,14 @@ export const getEventPosition = ({
   slotWidth,
   timeSlots,
 }: GetEventPositionArgs) => {
-    const startIndex = getTimeIndex(startTime, timeSlots);
-    const endIndex = getTimeIndex(endTime, timeSlots);
-    const span = Math.max(1, endIndex - startIndex);
-    // console.log('span>>>', span);
-    return {
-      span,
-      startIndex,
-      left: slotWidth * startIndex,
-      width: span * slotWidth,
-    };
+  const startIndex = getTimeIndex(startTime, timeSlots);
+  const endIndex = getTimeIndex(endTime, timeSlots);
+  const span = Math.max(1, endIndex - startIndex);
+  // console.log('span>>>', span);
+  return {
+    span,
+    startIndex,
+    left: slotWidth * startIndex,
+    width: span * slotWidth,
+  };
 };

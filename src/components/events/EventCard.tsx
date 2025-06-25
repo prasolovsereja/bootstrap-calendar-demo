@@ -1,14 +1,14 @@
-import React from "react";
-import type { Event } from "../../types/Event";
+import React from 'react';
+import type { Event } from '../../types/Event';
 
 interface EventCardProps {
-  event: Event,
+  event: Event;
   style: {
-    top: number,
-    left: number,
-    width: number,
-    height: number,
-  }
+    top: number;
+    left: number;
+    width: number;
+    height: number;
+  };
 }
 
 const EventCard = React.memo(({ event, style }: EventCardProps) => {
@@ -16,6 +16,6 @@ const EventCard = React.memo(({ event, style }: EventCardProps) => {
     <div className="position-absolute bg-primary text-white" style={style}>
       {event.title}
     </div>
-  )
-})
+  );
+});
 export default EventCard;
