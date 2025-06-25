@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-tooltip/dist/react-tooltip.css';
 import { createRoot } from 'react-dom/client';
 import App from './App';
 import { StrictMode } from 'react';
