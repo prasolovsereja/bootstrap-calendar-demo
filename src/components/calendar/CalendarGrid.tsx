@@ -3,7 +3,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 import type { DisplayMode } from '../../slices/calendarSlice';
 import type { PositionedEvent } from '../../types/Event';
 import EventCard from '../events/EventCard';
-import './CalendarGrid.css';
 
 interface CalendarGridProps {
   daysToRender: string[];

@@ -9,7 +9,6 @@ import { toggleDisplayMode } from '../../slices/calendarSlice';
 import CreateEventModal from '../modals/createEventModal';
 import { useGetSlotSize } from '../../hooks/useGetSlotSize';
 import { computePositionedEvents } from '../../utils/computePositionedEvents';
-import './CalendarLayout.css';
 
 const CalendarLayout: FC = () => {
   const dispatch = useAppDispatch();
@@ -33,36 +32,10 @@ const CalendarLayout: FC = () => {
   const isCurrentWeek = isEqual(selectedWeek.start, currentWeek.start);
   const fullWeek = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
 
-  // const daysToRender = useMemo(() => {
-  //   if (animationStage === 'collapsing') return fullWeek;
-  //   if (animationStage === 'collapsed') return [currentDay];
-  //   if (animationStage === 'expanding') return [currentDay];
-  //   return fullWeek;
-  // }, [fullWeek, currentDay, animationStage]);
-
   const [visualDays, setVisualDays] = useState<string[]>(fullWeek);
 
   const timeSlots = getTimeSlots();
 
-  // const handleToggleMode = () => {
-  //   if (displayMode === 'week') {
-  //     setAnimationStage('collapsing');
-  //     setIsAnimating(true);
-  //     setTimeout(() => {
-  //       dispatch(toggleDisplayMode());
-  //       setIsAnimating(false);
-  //       setAnimationStage('collapsed');
-  //     }, 700);
-  //   } else {
-  //     setAnimationStage('expanding');
-  //     setIsAnimating(true);
-  //     dispatch(toggleDisplayMode());
-  //     setTimeout(() => {
-  //       setIsAnimating(false);
-  //       setAnimationStage('expanded');
-  //     }, 700);
-  //   }
-  // };
   const handleToggleMode = () => {
     if (displayMode === 'week') {
       setIsAnimating(true);
@@ -88,11 +61,11 @@ const CalendarLayout: FC = () => {
         setVisualDays([]);
       }, 100);
       setTimeout(() => {
-        dispatch(toggleDisplayMode()); // режим WEEK
-        setVisualDays(fullWeek); // выкатываем все дни каскадом
+        dispatch(toggleDisplayMode());
+        setVisualDays(fullWeek);
         setAnimationStage('expanded');
         setIsAnimating(false);
-      }, 600); // длительность expand
+      }, 600);
     }
   };
 
