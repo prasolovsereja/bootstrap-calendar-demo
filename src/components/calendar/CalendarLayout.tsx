@@ -36,10 +36,11 @@ const CalendarLayout: FC = () => {
 
   const timeSlots = getTimeSlots();
 
-  const handleToggleMode = () => {
+  const handleToggleMode = async () => {
     if (displayMode === 'week') {
       setIsAnimating(true);
       setAnimationStage('collapsing');
+
       setTimeout(() => {
         setAnimationStage('disappearing-collapsing');
         setVisualDays([]);
@@ -47,6 +48,7 @@ const CalendarLayout: FC = () => {
         setTimeout(() => {
           dispatch(toggleDisplayMode());
           setVisualDays([currentDay]);
+
           setAnimationStage('collapsed');
           setIsAnimating(false);
         }, 900);
@@ -64,11 +66,11 @@ const CalendarLayout: FC = () => {
         dispatch(toggleDisplayMode());
         setVisualDays(fullWeek);
         setAnimationStage('expanded');
+
         setIsAnimating(false);
       }, 600);
     }
   };
-
   const handleAddEvent = (data: Omit<Event, 'id'>) => {
     const newEvent: Event = {
       ...data,
@@ -85,8 +87,6 @@ const CalendarLayout: FC = () => {
       end: selectedWeek.end,
     }),
   );
-  console.log(events);
-  console.log(eventsInSelectedWeek);
   const eventsToRender = useMemo(() => {
     if (!slotWidth || !slotHeight) return [];
     return computePositionedEvents({

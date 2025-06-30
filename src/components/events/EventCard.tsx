@@ -18,6 +18,7 @@ const EventCard = React.memo(({ event, style }: EventCardProps) => {
       <div
         className="position-absolute bg-primary text-white rounded-3"
         style={style}
+        data-testid="calendar-event"
         data-tooltip-id={`event-tooltip-${event.id}`}
         data-tooltip-content={`Название: ${event.title}\nВремя: ${event.start} - ${event.end}\nОписание: ${event.description}`}
       ></div>

@@ -42,6 +42,7 @@ const CalendarToolbar: FC<CalendarToolbarProps> = ({
           {'<-'}
         </button>
         <p
+          data-testid="week-range"
           className="m-0"
           style={weekRangeStyle}
         >{`${formattedWeekStart} - ${formattedWeekEnd}`}</p>
@@ -50,12 +51,20 @@ const CalendarToolbar: FC<CalendarToolbarProps> = ({
         </button>
       </div>
       <div className="d-flex flex-row justify-content-evenly w-50">
-        <button className="btn btn-primary" onClick={() => openModal()}>
+        <button
+          className="btn btn-primary"
+          onClick={() => {
+            openModal();
+            console.log('open-modal');
+          }}
+          data-testid="calendar-open-modal"
+        >
           Добавить событие
         </button>
         <button
           className="btn btn-primary"
-          onClick={() => handleToggleMode()}
+          data-testid="calendar-toggle-mode"
+          onClick={handleToggleMode}
           disabled={isAnimating}
         >
           {displayMode === 'week' ? 'Свернуть календарь' : 'Развенуть календарь'}

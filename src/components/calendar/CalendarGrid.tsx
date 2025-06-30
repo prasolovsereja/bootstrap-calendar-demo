@@ -38,6 +38,7 @@ const CalendarGrid: FC<CalendarGridProps> = ({
       </div>
 
       <div
+        data-testid="calendar-day-container"
         className={`d-flex flex-column position-relative w-auto ${
           animationStage === 'expanded' ||
           animationStage == 'collapsing' ||

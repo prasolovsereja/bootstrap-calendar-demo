@@ -11,9 +11,9 @@ const getTimeIndex = (time: string, timeSlots: string[]): number => {
   const timeIndex = timeSlots.findIndex(timeSlot => {
     const [hours, minutes] = timeSlot.split(':').map(Number);
     const slotMinutes = hours * 60 + minutes;
-    return slotMinutes > timeMinutes;
+    return slotMinutes >= timeMinutes;
   });
-  return timeIndex === -1 ? timeSlots.length - 1 : Math.max(1, timeIndex);
+  return timeIndex === -1 ? timeSlots.length - 1 : Math.max(1, timeIndex + 1);
 };
 
 export const getEventPosition = ({
@@ -25,7 +25,9 @@ export const getEventPosition = ({
   const startIndex = getTimeIndex(startTime, timeSlots);
   const endIndex = getTimeIndex(endTime, timeSlots);
   const span = Math.max(1, endIndex - startIndex);
-  // console.log('span>>>', span);
+  console.log('span>>>', span);
+  console.log('endIndex>>', endIndex);
+  console.log('startIndex>>>', startIndex);
   return {
     span,
     startIndex,
