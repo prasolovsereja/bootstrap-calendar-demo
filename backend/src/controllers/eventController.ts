@@ -20,6 +20,12 @@ export const createEvent = async (
   next: NextFunction
 ) => {
   try {
+    const { title, startDate, endDate, date, description } = req.body;
+
+    if (!title || !startDate || !endDate || !date || !description) {
+      console.log("bad request");
+      return next(new HttpError(400, "Bad Request"));
+    }
     const event = await eventServices.createEvent(req.body);
     res.status(201).json(event);
   } catch (err) {
@@ -32,13 +38,17 @@ export const deleteEvent = async (
   next: NextFunction
 ) => {
   try {
+    console.log("test delete");
     const id = parseInt(req.params.id, 10);
     if (isNaN(id)) {
-      return next(new HttpError(400, "Invalid ID"));
+      return next(new HttpError(401, "Invalid id"));
     }
     const event = await eventServices.deleteEvent(id);
     res.json(event);
-  } catch (err) {
+  } catch (err: any) {
+    if (err.code === "P2025") {
+      return next(new HttpError(404, "Not found"));
+    }
     next(err);
   }
 };
