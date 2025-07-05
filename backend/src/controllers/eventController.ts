@@ -1,6 +1,8 @@
 import { eventServices } from "../services/eventServices";
 import { Request, Response, NextFunction } from "express";
 import { HttpError } from "../utils/HttpError";
+import { validateEventData } from "../middlewares/validateEventData";
+
 export const getEvents = async (
   req: Request,
   res: Response,
@@ -20,11 +22,9 @@ export const createEvent = async (
   next: NextFunction
 ) => {
   try {
-    const { title, startDate, endDate, date, description } = req.body;
-
-    if (!title || !startDate || !endDate || !date || !description) {
+    if (!validateEventData(req.body)) {
       console.log("bad request");
-      return next(new HttpError(400, "Bad Request"));
+      return next(new HttpError(400, "Invalid event data"));
     }
     const event = await eventServices.createEvent(req.body);
     res.status(201).json(event);

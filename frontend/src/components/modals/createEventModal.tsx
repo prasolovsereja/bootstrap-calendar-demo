@@ -2,7 +2,7 @@ import type { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import type { Event } from '../../types/Event';
 
-type FormData = Omit<Event, 'id'>;
+type FormData = Event;
 
 interface ModalProps {
   onSubmit: (data: FormData) => void;

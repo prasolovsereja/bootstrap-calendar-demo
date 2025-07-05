@@ -10,7 +10,15 @@ type Args = {
   daysToRender: string[];
   slotHeight: number;
 };
-
+const daysMap: Record<string, string> = {
+  ПН: 'ПН',
+  ВТ: 'ВТ',
+  СР: 'СР',
+  ЧТ: 'ЧТ',
+  ПТ: 'ПТ',
+  СУ: 'СБ',
+  ВС: 'ВС',
+};
 export const computePositionedEvents = ({
   events,
   slotWidth,
@@ -19,13 +27,13 @@ export const computePositionedEvents = ({
   slotHeight,
 }: Args): PositionedEvent[] => {
   const result: PositionedEvent[] = [];
-  const renderedEvents = new Set<string>();
+  const renderedEvents = new Set<number>();
   daysToRender.forEach((day, rowIndex) => {
     const eventsInDay = events.filter(event => {
       const formattedEventDay = format(parseISO(event.date), 'EE', { locale: ru })
-        .toUpperCase()
+        .toLocaleUpperCase('ru-RU')
         .slice(0, 2);
-      return formattedEventDay === day;
+      return daysMap[formattedEventDay] === day;
     });
     const slotsMap = new Map<number, Event[]>();
     eventsInDay.forEach(event => {
@@ -45,7 +53,7 @@ export const computePositionedEvents = ({
     slotsMap.forEach(events => {
       const total = events.length;
       events.forEach((event, i) => {
-        if (renderedEvents.has(event.id)) return;
+        if (renderedEvents.has(event.id!)) return;
         const { left, width } = getEventPosition({
           startTime: event.start,
           endTime: event.end,
@@ -61,7 +69,7 @@ export const computePositionedEvents = ({
             left,
           },
         });
-        renderedEvents.add(event.id);
+        renderedEvents.add(event.id!);
       });
     });
   });
