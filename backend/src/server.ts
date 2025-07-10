@@ -7,7 +7,9 @@ import { apiKeyMiddleware } from "./middlewares/apiKeyMiddleware";
 export const app = express();
 const allowedOrigins = [
   "https://prasolovsereja.github.io/",
+  "https://prasolovsereja.github.io",
   "https://prasolovsereja.github.io/bootstrap-calendar-demo/",
+  "https://prasolovsereja.github.io/bootstrap-calendar-demo",
   "http://localhost:5173/bootstrap-calendar-demo/",
 ];
 app.use(
