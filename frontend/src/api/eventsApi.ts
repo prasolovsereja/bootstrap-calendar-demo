@@ -7,7 +7,7 @@ const baseUrl = import.meta.env.VITE_API_URL;
 export const eventsApi = createApi({
   reducerPath: 'eventsApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: `${baseUrl}/api/events`,
+    baseUrl: `${baseUrl}api/events`,
     prepareHeaders: headers => {
       headers.set('x-api-key', `${apiKey}`);
       return headers;
