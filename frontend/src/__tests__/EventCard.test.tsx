@@ -9,7 +9,7 @@ describe('Event Card tests', () => {
   let styleMock: { top: number; left: number; height: number; width: number };
   beforeAll(() => {
     eventMock = {
-      id: '1',
+      id: 1,
       title: 'test title',
       start: '13:00',
       end: '14:00',

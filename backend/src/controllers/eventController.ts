@@ -1,7 +1,7 @@
 import { eventServices } from "../services/eventServices";
 import { Request, Response, NextFunction } from "express";
 import { HttpError } from "../utils/HttpError";
-import { validateEventData } from "@/middlewares/validateEventData";
+import { validateEventData } from "../middlewares/validateEventData";
 
 export const getEvents = async (
   req: Request,

@@ -3,7 +3,7 @@ import { computePositionedEvents } from '../utils/computePositionedEvents';
 describe('computePositionedEvents tests', () => {
   const events: Event[] = [
     {
-      id: '1',
+      id: 1,
       title: 'test event1',
       description: 'test event1',
       start: '9:30',
@@ -11,7 +11,7 @@ describe('computePositionedEvents tests', () => {
       date: '2025-06-30T00:00:00.000Z',
     },
     {
-      id: '2',
+      id: 2,
       title: 'test event2',
       description: 'test event2',
       start: '9:30',
