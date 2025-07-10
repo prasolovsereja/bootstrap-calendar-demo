@@ -1,0 +1,44 @@
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import type { Event, EventDto } from '../types/Event';
+import { DtoToEvent, EventToDto } from '../utils/transformEvent';
+
+export const eventsApi = createApi({
+  reducerPath: 'eventsApi',
+  baseQuery: fetchBaseQuery({
+    baseUrl: '/api/events',
+    prepareHeaders: headers => {
+      headers.set('x-api-key', 'secreatapikey');
+      return headers;
+    },
+  }),
+  tagTypes: ['Events'],
+  endpoints: builder => ({
+    getEvents: builder.query<Event[], {}>({
+      query: () => '',
+      providesTags: ['Events'],
+      transformResponse: (response: EventDto[]): Event[] => {
+        return response.map(DtoToEvent);
+      },
+    }),
+    createEvent: builder.mutation<Event, Event>({
+      query: (event: Event) => ({
+        url: '',
+        method: 'POST',
+        body: EventToDto(event),
+      }),
+      invalidatesTags: ['Events'],
+      transformResponse: (response: EventDto): Event => {
+        return DtoToEvent(response);
+      },
+    }),
+    deleteEvent: builder.mutation<void, number>({
+      query: id => ({
+        url: `/${id}`,
+        method: 'DELETE',
+      }),
+      invalidatesTags: ['Events'],
+    }),
+  }),
+});
+const { useGetEventsQuery, useCreateEventMutation, useDeleteEventMutation } = eventsApi;
+export { useGetEventsQuery, useCreateEventMutation, useDeleteEventMutation };

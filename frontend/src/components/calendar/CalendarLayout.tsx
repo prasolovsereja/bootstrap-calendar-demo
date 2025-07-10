@@ -4,16 +4,19 @@ import { useAppSelector, useAppDispatch } from '../../slices/hooks';
 import CalendarGrid from './CalendarGrid';
 import CalendarToolbar from './CalendarToolbar';
 import { getTimeSlots } from '../../utils/time';
-import type { Event } from '../../types/Event';
 import { toggleDisplayMode } from '../../slices/calendarSlice';
 import CreateEventModal from '../modals/createEventModal';
 import { useGetSlotSize } from '../../hooks/useGetSlotSize';
 import { computePositionedEvents } from '../../utils/computePositionedEvents';
+import { useGetEventsQuery, useCreateEventMutation } from '../../api/eventsApi';
+import type { Event } from '../../types/Event';
 
 const CalendarLayout: FC = () => {
   const dispatch = useAppDispatch();
 
-  const [events, setEvents] = useState<Event[]>([]);
+  const { data: events = [] } = useGetEventsQuery({});
+  const [createEvent] = useCreateEventMutation();
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
   const [animationStage, setAnimationStage] = useState<
@@ -71,12 +74,12 @@ const CalendarLayout: FC = () => {
       }, 600);
     }
   };
-  const handleAddEvent = (data: Omit<Event, 'id'>) => {
-    const newEvent: Event = {
-      ...data,
-      id: crypto.randomUUID(),
-    };
-    setEvents(prev => [...prev, newEvent]);
+  const handleAddEvent = async (data: Event) => {
+    try {
+      await createEvent(data).unwrap();
+    } catch (error) {
+      console.error(error);
+    }
     setIsModalOpen(false);
   };
 
