@@ -2,12 +2,14 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { Event, EventDto } from '../types/Event';
 import { DtoToEvent, EventToDto } from '../utils/transformEvent';
 
+const apiKey = import.meta.env.VITE_API_KEY;
+
 export const eventsApi = createApi({
   reducerPath: 'eventsApi',
   baseQuery: fetchBaseQuery({
     baseUrl: '/api/events',
     prepareHeaders: headers => {
-      headers.set('x-api-key', 'secreatapikey');
+      headers.set('x-api-key', `${apiKey}`);
       return headers;
     },
   }),

@@ -9,7 +9,7 @@
     "test-coverage": "jest --coverage",
     "test-watch": "jest --watch",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/src/server.js"
   },
   "keywords": [],
   "author": "",
