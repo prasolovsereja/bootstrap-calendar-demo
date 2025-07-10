@@ -9,7 +9,6 @@ export const errorHandler = (
   if (err instanceof HttpError) {
     res.status(err.status).json({ error: err.message });
   } else {
-    console.error(err);
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
