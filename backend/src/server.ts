@@ -6,13 +6,13 @@ import { apiKeyMiddleware } from "./middlewares/apiKeyMiddleware";
 
 export const app = express();
 const allowedOrigins = [
+  "https://prasolovsereja.github.io",
   "https://prasolovsereja.github.io/bootstrap-calendar-demo/",
   "http://localhost:5173/bootstrap-calendar-demo/",
 ];
 app.use(express.json());
 app.use(errorHandler);
 app.use(apiKeyMiddleware);
-app.use("/api/events", eventRouter);
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -25,3 +25,4 @@ app.use(
     },
   })
 );
+app.use("/api/events", eventRouter);
