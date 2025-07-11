@@ -11,6 +11,8 @@ const allowedOrigins = [
   "https://prasolovsereja.github.io/bootstrap-calendar-demo/",
   "https://prasolovsereja.github.io/bootstrap-calendar-demo",
   "http://localhost:5173/bootstrap-calendar-demo/",
+  "http://localhost:5173/bootstrap-calendar-demo",
+  "http://localhost:5173",
 ];
 app.use(
   cors({

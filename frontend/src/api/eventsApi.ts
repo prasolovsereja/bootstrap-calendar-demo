@@ -4,6 +4,7 @@ import { DtoToEvent, EventToDto } from '../utils/transformEvent';
 
 const apiKey = import.meta.env.VITE_API_KEY;
 const baseUrl = import.meta.env.VITE_API_URL;
+
 export const eventsApi = createApi({
   reducerPath: 'eventsApi',
   baseQuery: fetchBaseQuery({

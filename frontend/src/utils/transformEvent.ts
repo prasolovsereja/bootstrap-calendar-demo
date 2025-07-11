@@ -1,5 +1,8 @@
 import type { Event, EventDto } from '../types/Event';
+import { toZonedTime, format } from 'date-fns-tz';
 
+const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+console.log(timeZone);
 export const EventToDto = (event: Event): EventDto => {
   const { start, end, date } = event;
   const transformedStart = new Date(`${date}T${start}`).toISOString();
@@ -18,9 +21,12 @@ export const EventToDto = (event: Event): EventDto => {
 };
 export const DtoToEvent = (event: EventDto): Event => {
   const { startDate, endDate, date } = event;
-  const transformedStart = new Date(startDate).toISOString().split('T')[1].slice(0, 5);
-  const transformedEnd = new Date(endDate).toISOString().split('T')[1].slice(0, 5);
-  const transformedDate = new Date(date).toISOString().split('T')[0];
+  const zonedStart = toZonedTime(startDate, timeZone);
+  const zonedEnd = toZonedTime(endDate, timeZone);
+  const zonedDate = toZonedTime(date, timeZone);
+  const transformedStart = format(zonedStart, 'HH:mm');
+  const transformedEnd = format(zonedEnd, 'HH:mm');
+  const transformedDate = format(zonedDate, 'yyyy-MM-dd');
   const transformedEvent: Event = {
     id: event.id,
     start: transformedStart,
